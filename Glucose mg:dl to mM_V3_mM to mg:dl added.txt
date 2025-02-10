@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .spacing {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Glucose Unit Converter</h2>
+
+        <!-- mg/dL to mmol/L Conversion -->
+        <div class="form-group spacing">
+            <label for="mgdl">Enter glucose value in mg/dL:</label>
+            <input type="number" id="mgdl" placeholder="mg/dL">
+            <button onclick="convertToMmol()">Convert to mmol/L</button>
+        </div>
+
+        <!-- mmol/L to mg/dL Conversion -->
+        <div class="form-group">
+            <label for="mmol">Enter glucose value in mmol/L:</label>
+            <input type="number" id="mmol" placeholder="mmol/L">
+            <button onclick="convertToMgdl()">Convert to mg/dL</button>
+        </div>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Function to convert mg/dL to mmol/L
+        function convertToMmol() {
+            var mgdl = document.getElementById("mgdl").value;
+            if (mgdl) {
+                var mmol = (mgdl / 18).toFixed(2); // Conversion factor
+                document.getElementById("result").innerText = mgdl + " mg/dL is equal to " + mmol + " mmol/L";
+            } else {
+                document.getElementById("result").innerText = "Please enter a valid mg/dL value.";
+            }
+        }
+
+        // Function to convert mmol/L to mg/dL
+        function convertToMgdl() {
+            var mmol = document.getElementById("mmol").value;
+            if (mmol) {
+                var mgdl = (mmol * 18).toFixed(2); // Conversion factor
+                document.getElementById("result").innerText = mmol + " mmol/L is equal to " + mgdl + " mg/dL";
+            } else {
+                document.getElementById("result").innerText = "Please enter a valid mmol/L value.";
+            }
+        }
+    </script>
+
+</body>
+</html>

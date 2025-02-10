@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Mixture Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .spacing {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Glucose Mixture Calculator</h2>
+
+        <!-- Calculate Unknown Glucose Level -->
+        <div class="form-group">
+            <label for="known">Enter known glucose value (B) in mg/dL (Ensure equal volumes of B and A are mixed):</label>
+            <input type="number" id="known" placeholder="Known glucose (B) in mg/dL">
+
+            <label for="meter">Enter glucose meter reading (C) in mg/dL:</label>
+            <input type="number" id="meter" placeholder="Glucose meter reading (C) in mg/dL">
+
+            <button onclick="calculateGlucoseMixture()">Calculate Unknown Glucose (A)</button>
+        </div>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Function to calculate unknown glucose (A)
+        function calculateGlucoseMixture() {
+            var known = document.getElementById("known").value;
+            var meter = document.getElementById("meter").value;
+            if (known && meter) {
+                var unknown = (2 * meter - known).toFixed(2); // Formula to calculate A
+                document.getElementById("result").innerText = "The unknown glucose value (A) is " + unknown + " mg/dL.";
+            } else {
+                document.getElementById("result").innerText = "Please enter valid values for known glucose (B) and meter reading (C).";
+            }
+        }
+    </script>
+
+</body>
+</html>
