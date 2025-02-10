@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Mixture Calculator | 葡萄糖混合计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .label-text {
+            display: block;
+        }
+
+        .label-text-cn {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result h3 {
+            color: #5A005A;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #5A005A;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Glucose Mixture Calculator</h2>
+        <p class="subtitle">葡萄糖混合计算器</p>
+
+        <div class="info-box">
+            <h4>How to Use | 使用说明</h4>
+            <p>This calculator helps you mix two glucose solutions to achieve a desired concentration.<br>
+            本计算器帮助您混合两种葡萄糖溶液以达到目标浓度。</p>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Stock Solution 1 Concentration (mM)</span>
+                <span class="label-text-cn">储备液1浓度 (mM)</span>
+            </label>
+            <input type="number" id="stock1Conc" placeholder="Enter concentration">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Stock Solution 2 Concentration (mM)</span>
+                <span class="label-text-cn">储备液2浓度 (mM)</span>
+            </label>
+            <input type="number" id="stock2Conc" placeholder="Enter concentration">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Desired Final Concentration (mM)</span>
+                <span class="label-text-cn">目标终浓度 (mM)</span>
+            </label>
+            <input type="number" id="desiredConc" placeholder="Enter concentration">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Final Volume (mL)</span>
+                <span class="label-text-cn">终体积 (mL)</span>
+            </label>
+            <input type="number" id="mixtureVolume" placeholder="Enter volume">
+        </div>
+
+        <button onclick="calculateMixture()">Calculate | 计算</button>
+
+        <div id="result" class="result">
+            <h3>Results | 计算结果</h3>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateMixture() {
+            var stock1 = parseFloat(document.getElementById("stock1Conc").value);
+            var stock2 = parseFloat(document.getElementById("stock2Conc").value);
+            var desired = parseFloat(document.getElementById("desiredConc").value);
+            var finalVol = parseFloat(document.getElementById("mixtureVolume").value);
+
+            // Validate inputs
+            if (isNaN(stock1) || isNaN(stock2) || isNaN(desired) || isNaN(finalVol)) {
+                showResult("Please fill in all fields with valid numbers.<br>请填写所有字段的有效数字。");
+                return;
+            }
+
+            if (desired > Math.max(stock1, stock2) || desired < Math.min(stock1, stock2)) {
+                showResult("Error: Desired concentration must be between stock solution concentrations.<br>错误：目标浓度必须在两个储备液浓度之间。");
+                return;
+            }
+
+            var vol1 = finalVol * (desired - stock2) / (stock1 - stock2);
+            var vol2 = finalVol - vol1;
+
+            var resultHtml = `
+                <p><strong>Stock Solution 1 | 储备液1 (${stock1} mM):</strong><br>
+                ${vol1.toFixed(2)} mL (${(vol1 * 1000).toFixed(2)} µL)</p>
+                <p><strong>Stock Solution 2 | 储备液2 (${stock2} mM):</strong><br>
+                ${vol2.toFixed(2)} mL (${(vol2 * 1000).toFixed(2)} µL)</p>
+            `;
+
+            showResult(resultHtml);
+        }
+
+        function showResult(content) {
+            var resultDiv = document.getElementById("result");
+            document.getElementById("resultContent").innerHTML = content;
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html> 

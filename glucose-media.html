@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Media Calculator | 葡萄糖培养基计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .label-text {
+            display: block;
+        }
+
+        .label-text-cn {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result h3 {
+            color: #5A005A;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Glucose Media Calculator</h2>
+        <p class="subtitle">葡萄糖培养基计算器</p>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Current Glucose Concentration</span>
+                <span class="label-text-cn">当前葡萄糖浓度</span>
+            </label>
+            <select id="glucoseUnit">
+                <option value="mg/dL">mg/dL</option>
+                <option value="mM">mM</option>
+            </select>
+            <input type="number" id="currentGlucose" placeholder="Enter current concentration">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Desired Final Concentration (mmol/L)</span>
+                <span class="label-text-cn">目标终浓度 (mmol/L)</span>
+            </label>
+            <input type="number" id="finalGlucose" placeholder="Enter desired concentration">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Current Culture Volume (µL)</span>
+                <span class="label-text-cn">当前培养体积 (µL)</span>
+            </label>
+            <input type="number" id="currentVolume" placeholder="Enter current volume">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Desired Final Volume (µL)</span>
+                <span class="label-text-cn">目标终体积 (µL)</span>
+            </label>
+            <input type="number" id="finalVolume" placeholder="Enter final volume">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span class="label-text">Number of Wells</span>
+                <span class="label-text-cn">孔数</span>
+            </label>
+            <input type="number" id="numWells" placeholder="Enter number of wells">
+        </div>
+
+        <button onclick="calculateMedia()">Calculate | 计算</button>
+
+        <div id="result" class="result">
+            <h3>Results | 计算结果</h3>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateMedia() {
+            var glucoseUnit = document.getElementById("glucoseUnit").value;
+            var currentGlucose = parseFloat(document.getElementById("currentGlucose").value);
+            var finalGlucose = parseFloat(document.getElementById("finalGlucose").value);
+            var currentVolume = parseFloat(document.getElementById("currentVolume").value) / 1000;
+            var finalVolume = parseFloat(document.getElementById("finalVolume").value) / 1000;
+            var numWells = parseInt(document.getElementById("numWells").value);
+
+            // Validate inputs
+            if (isNaN(currentGlucose) || isNaN(finalGlucose) || isNaN(currentVolume) || 
+                isNaN(finalVolume) || isNaN(numWells)) {
+                showResult("Please fill in all fields with valid numbers.<br>请填写所有字段的有效数字。");
+                return;
+            }
+
+            var currentGlucoseMMol = glucoseUnit === "mg/dL" ? currentGlucose / 18 : currentGlucose;
+
+            var totalGlucoseRequired = finalGlucose * finalVolume;
+            var totalCurrentGlucose = currentGlucoseMMol * currentVolume;
+            var glucoseToAdd = totalGlucoseRequired - totalCurrentGlucose;
+            var volumeToAdd = finalVolume - currentVolume;
+
+            var y = (glucoseToAdd - 5 * volumeToAdd) / 20;
+            var x = volumeToAdd - y;
+
+            var xMicroLiters = x * 1000;
+            var yMicroLiters = y * 1000;
+            var totalXMicroLiters = xMicroLiters * numWells;
+            var totalYMicroLiters = yMicroLiters * numWells;
+
+            if (xMicroLiters >= 0 && yMicroLiters >= 0) {
+                var resultHtml = `
+                    <p><strong>Per well | 每孔:</strong></p>
+                    <p>5mM glucose media | 5mM葡萄糖培养基: ${formatVolume(x)}</p>
+                    <p>25mM glucose media | 25mM葡萄糖培养基: ${formatVolume(y)}</p>
+                    <p><strong>For ${numWells} wells | ${numWells}孔总量:</strong></p>
+                    <p>5mM glucose media | 5mM葡萄糖培养基: ${formatVolume(totalXMicroLiters/1000)}</p>
+                    <p>25mM glucose media | 25mM葡萄糖培养基: ${formatVolume(totalYMicroLiters/1000)}</p>`;
+                showResult(resultHtml);
+            } else {
+                showResult("Error: Please check your inputs. The desired concentration cannot be achieved with given parameters.<br>错误：请检查输入参数，无法达到目标浓度。");
+            }
+        }
+
+        function formatVolume(volume) {
+            if (volume >= 1000) {
+                return (volume / 1000).toFixed(2) + ' L';
+            } else if (volume >= 1) {
+                return volume.toFixed(2) + ' mL';
+            } else {
+                return (volume * 1000).toFixed(2) + ' µL';
+            }
+        }
+
+        function showResult(content) {
+            var resultDiv = document.getElementById("result");
+            document.getElementById("resultContent").innerHTML = content;
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html> 
