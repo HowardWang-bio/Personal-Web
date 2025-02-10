@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemocytometer Cell Count Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Hemocytometer Cell Count Calculator</h2>
+
+        <p>The hemocytometer is used to count cells in a known volume. The <strong>center grid</strong> has 25 large squares, each containing 16 smaller squares. You can count all 25 squares or 5 random squares, and the calculator will adjust the count accordingly.</p>
+
+        <!-- Selection for counting method -->
+        <div class="form-group">
+            <label for="countMethod">Choose Counting Method:</label>
+            <select id="countMethod" required>
+                <option value="25">Counted from all 25 large squares</option>
+                <option value="5">Counted from 5 random large squares</option>
+            </select>
+        </div>
+
+        <!-- Input fields for cell count and dilution factor -->
+        <div class="form-group">
+            <label for="totalCells">Total Cells Counted:</label>
+            <input type="number" id="totalCells" placeholder="Enter total cells counted" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dilutionFactor">Dilution Factor:</label>
+            <input type="number" id="dilutionFactor" placeholder="Enter dilution factor" required>
+        </div>
+
+        <!-- Button to calculate the total cells/mL -->
+        <button onclick="calculateCellCount()">Calculate cells/mL</button>
+
+        <!-- Display the result -->
+        <p id="result" class="result"></p>
+    </div>
+
+    <script>
+        function calculateCellCount() {
+            // Get the user inputs
+            let totalCellsCounted = document.getElementById('totalCells').value;
+            let dilutionFactor = document.getElementById('dilutionFactor').value;
+            let countMethod = document.getElementById('countMethod').value;
+
+            // Convert inputs to numbers
+            totalCellsCounted = parseFloat(totalCellsCounted);
+            dilutionFactor = parseFloat(dilutionFactor);
+
+            // Validate inputs
+            if (isNaN(totalCellsCounted) || isNaN(dilutionFactor) || totalCellsCounted <= 0 || dilutionFactor <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Multiply by 5 if counted from 5 random squares
+            if (countMethod === '5') {
+                totalCellsCounted *= 5; // Adjust count for only 5 squares
+            }
+
+            // Calculate total cells/mL
+            let totalCellsPerMl = totalCellsCounted * dilutionFactor * 10000;
+
+            // Convert to scientific notation and format as needed
+            let scientificNotation = totalCellsPerMl.toExponential(2).replace('e+', ' × 10^');
+
+            // Display the result in the desired format
+            document.getElementById('result').innerHTML = `cells/mL = ${scientificNotation} cells/mL`;
+        }
+    </script>
+
+</body>
+</html> 

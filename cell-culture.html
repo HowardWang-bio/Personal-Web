@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Culture Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #5A005A;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            display: none; /* Hide result box initially */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cell Culture Calculator</h2>
+
+        <div class="form-group">
+            <label for="cellDensity">Cell density of each well (cells/well):</label>
+            <input type="number" id="cellDensity" placeholder="Enter cell density per well">
+        </div>
+
+        <div class="form-group">
+            <label for="totalWells">Total number of wells:</label>
+            <input type="number" id="totalWells" placeholder="Enter total wells to plate">
+        </div>
+
+        <div class="form-group">
+            <label for="finalVolume">Final volume of each well (ml):</label>
+            <input type="number" id="finalVolume" step="0.01" placeholder="Enter final volume per well">
+        </div>
+
+        <div class="form-group">
+            <label for="cellSuspensionDensity">Cell suspension density (cells/ml):</label>
+            <input type="number" id="cellSuspensionDensity" placeholder="Enter cell suspension density">
+        </div>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result" class="result"></div> <!-- Initially hidden -->
+    </div>
+
+    <script>
+        function calculate() {
+            // Get inputs
+            const cellDensity = parseFloat(document.getElementById('cellDensity').value);
+            const totalWells = parseInt(document.getElementById('totalWells').value);
+            const finalVolume = parseFloat(document.getElementById('finalVolume').value);
+            const cellSuspensionDensity = parseFloat(document.getElementById('cellSuspensionDensity').value);
+
+            // Validate inputs
+            if (isNaN(cellDensity) || isNaN(totalWells) || isNaN(finalVolume) || isNaN(cellSuspensionDensity)) {
+                document.getElementById('result').innerHTML = "Please fill in all fields with valid numbers.";
+                document.getElementById('result').style.display = 'block'; // Show result box
+                return;
+            }
+
+            // Calculate required cell suspension volume in ml
+            const totalCells = cellDensity * totalWells;
+            const cellSuspensionVolumeMl = totalCells / cellSuspensionDensity;
+
+            // Calculate the required media volume in ml
+            const totalVolume = finalVolume * totalWells;
+            const mediaVolumeMl = totalVolume - cellSuspensionVolumeMl;
+
+            // Display results and show result box
+            document.getElementById('result').innerHTML = `
+                <strong>Results:</strong><br>
+                Cell suspension needed: ${cellSuspensionVolumeMl.toFixed(2)} ml (${(cellSuspensionVolumeMl * 1000).toFixed(2)} µl)<br>
+                Media needed to reach final volume: ${mediaVolumeMl.toFixed(2)} ml (${(mediaVolumeMl * 1000).toFixed(2)} µl)
+            `;
+            document.getElementById('result').style.display = 'block'; // Show result box when results are available
+        }
+    </script>
+
+</body>
+</html> 
