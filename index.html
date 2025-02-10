@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioToolHub: Essential Lab Calculators</title>
+    <style>
+        /* 临时样式，后续会移到单独的CSS文件中 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000033;
+            color: white;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            background: rgba(0, 0, 51, 0.9);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        /* 主标题区域 */
+        .hero {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* 计算器卡片区域 */
+        .calculators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #4ecdc4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#glucose">Glucose Calculator</a></li>
+            <li><a href="#molarity">Molarity Calculator</a></li>
+            <li><a href="#cell">Cell Counting Calculator</a></li>
+            <li><a href="#cloning">Cloning Calculator</a></li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主标题区域 -->
+    <section class="hero">
+        <div>
+            <h1>BioToolHub: Essential Lab Calculators</h1>
+            <p>让实验室计算更简单、更准确</p>
+        </div>
+    </section>
+
+    <!-- 计算器卡片区域 -->
+    <section class="calculators">
+        <div class="calculator-card">
+            <h2>Glucose Calculator</h2>
+            <p>快速计算葡萄糖浓度和配置方案</p>
+            <a href="#glucose" class="btn">开始使用</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>Cell Counting Calculator</h2>
+            <p>精确计算细胞计数和密度</p>
+            <a href="#cell" class="btn">开始使用</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>Molarity Calculator</h2>
+            <p>轻松计算摩尔浓度和稀释方案</p>
+            <a href="#molarity" class="btn">开始使用</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>Cloning Calculator</h2>
+            <p>设计你的克隆实验方案</p>
+            <a href="#cloning" class="btn">开始使用</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>AI Podcast</h2>
+            <p>探索生物科技前沿资讯</p>
+            <a href="#podcast" class="btn">开始收听</a>
+        </div>
+    </section>
+</body>
+</html> 
