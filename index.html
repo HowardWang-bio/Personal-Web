@@ -76,10 +76,33 @@
             text-align: center;
             transition: transform 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 300px;
         }
 
         .calculator-card:hover {
             transform: translateY(-5px);
+        }
+
+        .calculator-card h2 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .calculator-card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .calculator-card .btn-container {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .btn {
@@ -89,7 +112,12 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 1rem;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #3dbdb4;
         }
     </style>
 </head>
@@ -119,7 +147,7 @@
         <div class="calculator-card">
             <h2>Glucose Calculator</h2>
             <p>Glucose concentration and preparation tools<br>葡萄糖浓度和配置工具</p>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div class="btn-container">
                 <a href="glucose-media.html" class="btn">Media Calculator | 培养基计算</a>
                 <a href="glucose-converter.html" class="btn">Unit Converter | 单位转换</a>
                 <a href="glucose-mixture.html" class="btn">Mixture Calculator | 混合计算</a>
@@ -128,29 +156,35 @@
 
         <div class="calculator-card">
             <h2>Cell Counting Calculator</h2>
-            <p>精确计算细胞计数和密度</p>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="hemocytometer.html" class="btn">血球计数器计算</a>
-                <a href="cell-culture.html" class="btn">细胞培养计算</a>
+            <p>Cell counting and density calculation tools<br>细胞计数和密度计算工具</p>
+            <div class="btn-container">
+                <a href="hemocytometer.html" class="btn">Hemocytometer Calculator | 血球计数器计算</a>
+                <a href="cell-culture.html" class="btn">Cell Culture Calculator | 细胞培养计算</a>
             </div>
         </div>
 
         <div class="calculator-card">
             <h2>Molarity Calculator</h2>
-            <p>轻松计算摩尔浓度和稀释方案</p>
-            <a href="#molarity" class="btn">开始使用</a>
+            <p>Molarity calculation and dilution tools<br>摩尔浓度和稀释方案计算工具</p>
+            <div class="btn-container">
+                <a href="#molarity" class="btn">Start Using | 开始使用</a>
+            </div>
         </div>
 
         <div class="calculator-card">
             <h2>Cloning Calculator</h2>
-            <p>设计你的克隆实验方案</p>
-            <a href="#cloning" class="btn">开始使用</a>
+            <p>Cloning experiment design tools<br>克隆实验方案设计工具</p>
+            <div class="btn-container">
+                <a href="#cloning" class="btn">Start Using | 开始使用</a>
+            </div>
         </div>
 
         <div class="calculator-card">
             <h2>AI Podcast</h2>
-            <p>探索生物科技前沿资讯</p>
-            <a href="#podcast" class="btn">开始收听</a>
+            <p>Biotech frontier information<br>生物科技前沿资讯</p>
+            <div class="btn-container">
+                <a href="#podcast" class="btn">Start Listening | 开始收听</a>
+            </div>
         </div>
     </section>
 
