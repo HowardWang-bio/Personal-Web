@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume from Mass & Concentration | 从质量和浓度计算体积</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2, .container h3 {
+            color: #5A005A;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .tooltip {
+            font-size: 12px;
+            color: gray;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Volume from Mass & Concentration</h2>
+        <p class="subtitle">从质量和浓度计算体积</p>
+
+        <div class="form-group">
+            <label for="mass">
+                <span class="label-text">Mass | 质量:</span>
+            </label>
+            <span class="tooltip">Enter the mass value | 输入质量值</span>
+            <input type="number" id="mass" placeholder="e.g., 1">
+            <select id="massUnit">
+                <option value="micrograms">micrograms (µg)</option>
+                <option value="milligrams" selected>milligrams (mg)</option>
+                <option value="grams">grams (g)</option>
+                <option value="kilograms">kilograms (kg)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="formulaWeight">
+                <span class="label-text">Formula Weight | 分子量 (daltons):</span>
+            </label>
+            <span class="tooltip">The molecular weight in daltons (g/mol) | 分子量（克/摩尔）</span>
+            <input type="number" id="formulaWeight" placeholder="e.g., 180">
+        </div>
+
+        <div class="form-group">
+            <label for="concentration">
+                <span class="label-text">Concentration | 浓度:</span>
+            </label>
+            <span class="tooltip">Enter the concentration value | 输入浓度值</span>
+            <input type="number" id="concentration" placeholder="e.g., 5">
+            <select id="concentrationUnit">
+                <option value="femtomolar">femtomolar (fM)</option>
+                <option value="picomolar">picomolar (pM)</option>
+                <option value="nanomolar">nanomolar (nM)</option>
+                <option value="micromolar">micromolar (µM)</option>
+                <option value="millimolar" selected>millimolar (mM)</option>
+                <option value="molar">molar (M)</option>
+            </select>
+        </div>
+
+        <button onclick="calculateVolume()">Calculate Volume | 计算体积</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateVolume() {
+            const mass = parseFloat(document.getElementById("mass").value);
+            const massUnit = document.getElementById("massUnit").value;
+            const formulaWeight = parseFloat(document.getElementById("formulaWeight").value);
+            const concentration = parseFloat(document.getElementById("concentration").value);
+            const concentrationUnit = document.getElementById("concentrationUnit").value;
+
+            // Convert mass to grams
+            let massInGrams;
+            switch (massUnit) {
+                case 'micrograms': massInGrams = mass * 1e-6; break;
+                case 'milligrams': massInGrams = mass * 1e-3; break;
+                case 'grams': massInGrams = mass; break;
+                case 'kilograms': massInGrams = mass * 1e3; break;
+            }
+
+            // Convert concentration to molar units (M)
+            let concentrationInMolar;
+            switch (concentrationUnit) {
+                case 'femtomolar': concentrationInMolar = concentration * 1e-15; break;
+                case 'picomolar': concentrationInMolar = concentration * 1e-12; break;
+                case 'nanomolar': concentrationInMolar = concentration * 1e-9; break;
+                case 'micromolar': concentrationInMolar = concentration * 1e-6; break;
+                case 'millimolar': concentrationInMolar = concentration * 1e-3; break;
+                case 'molar': concentrationInMolar = concentration; break;
+            }
+
+            // Calculate volume in liters
+            let volumeInLiters = massInGrams / (concentrationInMolar * formulaWeight);
+
+            // Determine the appropriate unit
+            let volume, unit;
+            if (volumeInLiters >= 1) {
+                volume = volumeInLiters;
+                unit = "L";
+            } else if (volumeInLiters >= 1e-3) {
+                volume = volumeInLiters * 1e3;
+                unit = "mL";
+            } else if (volumeInLiters >= 1e-6) {
+                volume = volumeInLiters * 1e6;
+                unit = "µL";
+            } else if (volumeInLiters >= 1e-9) {
+                volume = volumeInLiters * 1e9;
+                unit = "nL";
+            } else if (volumeInLiters >= 1e-12) {
+                volume = volumeInLiters * 1e12;
+                unit = "pL";
+            } else {
+                volume = volumeInLiters * 1e15;
+                unit = "fL";
+            }
+
+            // Display the result with 2 decimal places
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = `Volume | 体积 = ${volume.toFixed(2)} ${unit}`;
+            resultElement.style.display = "block";
+        }
+    </script>
+
+</body>
+</html> 

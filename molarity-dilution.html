@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilute a Stock Solution | 稀释储备液</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2, .container h3 {
+            color: #5A005A;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .tooltip {
+            font-size: 12px;
+            color: gray;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Dilute a Stock Solution</h2>
+        <p class="subtitle">稀释储备液</p>
+
+        <div class="form-group">
+            <label for="stockConcentration">
+                <span class="label-text">Stock Concentration | 储备液浓度:</span>
+            </label>
+            <span class="tooltip">Enter the stock concentration value | 输入储备液浓度</span>
+            <input type="number" id="stockConcentration" placeholder="e.g., 100">
+            <select id="stockConcentrationUnit">
+                <option value="femtomolar">femtomolar (fM)</option>
+                <option value="picomolar">picomolar (pM)</option>
+                <option value="nanomolar">nanomolar (nM)</option>
+                <option value="micromolar">micromolar (µM)</option>
+                <option value="millimolar" selected>millimolar (mM)</option>
+                <option value="molar">molar (M)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="desiredConcentration">
+                <span class="label-text">Desired Concentration | 目标浓度:</span>
+            </label>
+            <span class="tooltip">Enter the desired concentration value | 输入目标浓度</span>
+            <input type="number" id="desiredConcentration" placeholder="e.g., 10">
+            <select id="desiredConcentrationUnit">
+                <option value="femtomolar">femtomolar (fM)</option>
+                <option value="picomolar">picomolar (pM)</option>
+                <option value="nanomolar">nanomolar (nM)</option>
+                <option value="micromolar">micromolar (µM)</option>
+                <option value="millimolar" selected>millimolar (mM)</option>
+                <option value="molar">molar (M)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="desiredVolume">
+                <span class="label-text">Desired Volume | 目标体积:</span>
+            </label>
+            <span class="tooltip">Enter the desired volume value | 输入目标体积</span>
+            <input type="number" id="desiredVolume" placeholder="e.g., 10">
+            <select id="desiredVolumeUnit">
+                <option value="microliter">microliter (µL)</option>
+                <option value="milliliter" selected>milliliter (mL)</option>
+                <option value="liter">liter (L)</option>
+            </select>
+        </div>
+
+        <button onclick="calculateRequiredVolume()">Calculate Required Volume | 计算所需体积</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateRequiredVolume() {
+            const stockConcentration = parseFloat(document.getElementById("stockConcentration").value);
+            const stockConcentrationUnit = document.getElementById("stockConcentrationUnit").value;
+            const desiredConcentration = parseFloat(document.getElementById("desiredConcentration").value);
+            const desiredConcentrationUnit = document.getElementById("desiredConcentrationUnit").value;
+            const desiredVolume = parseFloat(document.getElementById("desiredVolume").value);
+            const desiredVolumeUnit = document.getElementById("desiredVolumeUnit").value;
+
+            // Convert stock concentration to molar
+            let stockConcentrationInMolar;
+            switch (stockConcentrationUnit) {
+                case 'femtomolar': stockConcentrationInMolar = stockConcentration * 1e-15; break;
+                case 'picomolar': stockConcentrationInMolar = stockConcentration * 1e-12; break;
+                case 'nanomolar': stockConcentrationInMolar = stockConcentration * 1e-9; break;
+                case 'micromolar': stockConcentrationInMolar = stockConcentration * 1e-6; break;
+                case 'millimolar': stockConcentrationInMolar = stockConcentration * 1e-3; break;
+                case 'molar': stockConcentrationInMolar = stockConcentration; break;
+            }
+
+            // Convert desired concentration to molar
+            let desiredConcentrationInMolar;
+            switch (desiredConcentrationUnit) {
+                case 'femtomolar': desiredConcentrationInMolar = desiredConcentration * 1e-15; break;
+                case 'picomolar': desiredConcentrationInMolar = desiredConcentration * 1e-12; break;
+                case 'nanomolar': desiredConcentrationInMolar = desiredConcentration * 1e-9; break;
+                case 'micromolar': desiredConcentrationInMolar = desiredConcentration * 1e-6; break;
+                case 'millimolar': desiredConcentrationInMolar = desiredConcentration * 1e-3; break;
+                case 'molar': desiredConcentrationInMolar = desiredConcentration; break;
+            }
+
+            // Convert desired volume to liters
+            let desiredVolumeInLiters;
+            switch (desiredVolumeUnit) {
+                case 'microliter': desiredVolumeInLiters = desiredVolume * 1e-6; break;
+                case 'milliliter': desiredVolumeInLiters = desiredVolume * 1e-3; break;
+                case 'liter': desiredVolumeInLiters = desiredVolume; break;
+            }
+
+            // Calculate required volume (L) = (desired concentration * desired volume) / stock concentration
+            let requiredVolumeInLiters = (desiredConcentrationInMolar * desiredVolumeInLiters) / stockConcentrationInMolar;
+            let diluentVolumeInLiters = desiredVolumeInLiters - requiredVolumeInLiters;
+
+            // Convert to appropriate units
+            let [stockVolume, stockUnit] = formatVolume(requiredVolumeInLiters);
+            let [diluentVolume, diluentUnit] = formatVolume(diluentVolumeInLiters);
+
+            // Display the result
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = `
+                <p><strong>Stock Solution | 储备液:</strong><br>
+                ${stockVolume.toFixed(3)} ${stockUnit}</p>
+                <p><strong>Diluent (e.g., water or buffer) | 稀释液（如水或缓冲液）:</strong><br>
+                ${diluentVolume.toFixed(3)} ${diluentUnit}</p>
+            `;
+            resultElement.style.display = "block";
+        }
+
+        function formatVolume(volumeInLiters) {
+            if (volumeInLiters >= 1) {
+                return [volumeInLiters, "L"];
+            } else if (volumeInLiters >= 1e-3) {
+                return [volumeInLiters * 1e3, "mL"];
+            } else if (volumeInLiters >= 1e-6) {
+                return [volumeInLiters * 1e6, "µL"];
+            } else if (volumeInLiters >= 1e-9) {
+                return [volumeInLiters * 1e9, "nL"];
+            } else if (volumeInLiters >= 1e-12) {
+                return [volumeInLiters * 1e12, "pL"];
+            } else {
+                return [volumeInLiters * 1e15, "fL"];
+            }
+        }
+    </script>
+
+</body>
+</html> 
