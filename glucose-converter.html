@@ -3,209 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glucose Unit Converter | 葡萄糖单位转换器</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .container h2 {
-            color: #5A005A;
-            margin-bottom: 20px;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .label-text {
-            display: block;
-        }
-
-        .label-text-cn {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        input, select {
-            width: calc(100% - 10px);
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #FF5A00;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #E54E00;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .result h3 {
-            color: #5A005A;
-            margin-bottom: 10px;
-        }
-
-        .conversion-table {
-            margin-top: 30px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-
-        .conversion-table h3 {
-            color: #5A005A;
-            margin-bottom: 15px;
-        }
-
-        .conversion-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .conversion-table th, .conversion-table td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .conversion-table th {
-            background-color: #f5f5f5;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <title>Unit Converter | 单位转换器</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Glucose Unit Converter</h2>
-        <p class="subtitle">葡萄糖单位转换器</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
+                    <li><a href="molarity-mass.html">Mass from Volume</a></li>
+                    <li><a href="molarity-volume.html">Volume from Mass</a></li>
+                    <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator</a></li>
+                </ul>
+            </li>
+            <li><a href="#cloning">Cloning Calculator</a></li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
 
-        <div class="form-group">
-            <label>
-                <span class="label-text">Enter Value</span>
-                <span class="label-text-cn">输入数值</span>
-            </label>
-            <input type="number" id="conversionInput" placeholder="Enter value">
+    <section class="hero">
+        <div>
+            <h1>Unit Converter</h1>
+            <p>Convert glucose units easily | 葡萄糖单位转换工具</p>
         </div>
+    </section>
 
-        <div class="form-group">
-            <label>
-                <span class="label-text">Select Unit</span>
-                <span class="label-text-cn">选择单位</span>
-            </label>
-            <select id="fromUnit">
-                <option value="mg/dL">mg/dL (毫克/分升)</option>
-                <option value="mM">mM (毫摩尔/升)</option>
-                <option value="g/L">g/L (克/升)</option>
-            </select>
+    <section class="calculators">
+        <div class="calculator-card">
+            <h2>Glucose Unit Converter</h2>
+
+            <div class="form-group">
+                <label for="glucoseValue">Glucose Value | 葡萄糖值:</label>
+                <input type="number" id="glucoseValue" placeholder="e.g., 100">
+                <select id="glucoseUnit">
+                    <option value="mg/dL" selected>mg/dL</option>
+                    <option value="mmol/L">mmol/L</option>
+                </select>
+            </div>
+
+            <button onclick="convertGlucose()" class="btn">Convert Units | 转换单位</button>
+            <p id="result"></p>
         </div>
+    </section>
 
-        <button onclick="convertUnits()">Convert | 转换</button>
-
-        <div id="result" class="result">
-            <h3>Results | 转换结果</h3>
-            <div id="resultContent"></div>
-        </div>
-
-        <div class="conversion-table">
-            <h3>Common Conversion Factors | 常用转换系数</h3>
-            <table>
-                <tr>
-                    <th>From | 从</th>
-                    <th>To | 到</th>
-                    <th>Multiply by | 乘以</th>
-                </tr>
-                <tr>
-                    <td>mg/dL</td>
-                    <td>mM</td>
-                    <td>0.0555</td>
-                </tr>
-                <tr>
-                    <td>mM</td>
-                    <td>mg/dL</td>
-                    <td>18.0182</td>
-                </tr>
-                <tr>
-                    <td>g/L</td>
-                    <td>mg/dL</td>
-                    <td>100</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        function convertUnits() {
-            var value = parseFloat(document.getElementById("conversionInput").value);
-            var fromUnit = document.getElementById("fromUnit").value;
-            
-            if (isNaN(value)) {
-                showResult("Please enter a valid number.<br>请输入有效数字。");
-                return;
-            }
-
-            var results = [];
-            
-            // Convert to all units
-            if (fromUnit === "mg/dL") {
-                results.push(`${value} mg/dL = ${(value * 0.0555).toFixed(2)} mM`);
-                results.push(`${value} mg/dL = ${(value / 100).toFixed(2)} g/L`);
-            } else if (fromUnit === "mM") {
-                results.push(`${value} mM = ${(value * 18.0182).toFixed(2)} mg/dL`);
-                results.push(`${value} mM = ${(value * 0.18018).toFixed(2)} g/L`);
-            } else if (fromUnit === "g/L") {
-                results.push(`${value} g/L = ${(value * 100).toFixed(2)} mg/dL`);
-                results.push(`${value} g/L = ${(value * 5.55).toFixed(2)} mM`);
-            }
-
-            showResult(results.join('<br>'));
-        }
-
-        function showResult(content) {
-            var resultDiv = document.getElementById("result");
-            document.getElementById("resultContent").innerHTML = content;
-            resultDiv.style.display = "block";
-        }
-    </script>
+    <script src="glucose-converter.js"></script>
 </body>
-</html> 
+</html>

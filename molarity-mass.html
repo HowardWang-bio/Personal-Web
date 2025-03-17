@@ -3,189 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mass from Volume & Concentration | 从体积和浓度计算质量</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .container h2, .container h3 {
-            color: #5A005A;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        .tooltip {
-            font-size: 12px;
-            color: gray;
-            display: inline-block;
-            margin-left: 8px;
-        }
-
-        input, select {
-            width: calc(100% - 10px);
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #FF5A00;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #E54E00;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <title>Mass from Volume & Molarity | 从体积和摩尔浓度计算质量</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
+                    <li><a href="molarity-mass.html">Mass from Volume</a></li>
+                    <li><a href="molarity-volume.html">Volume from Mass</a></li>
+                    <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator</a></li>
+                </ul>
+            </li>
+            <li><a href="#cloning">Cloning Calculator</a></li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
-        <h2>Mass from Volume & Concentration</h2>
-        <p class="subtitle">从体积和浓度计算质量</p>
-
-        <div class="form-group">
-            <label for="concentration">
-                <span class="label-text">Concentration | 浓度:</span>
-            </label>
-            <span class="tooltip">Enter the concentration value | 输入浓度值</span>
-            <input type="number" id="concentration" placeholder="e.g., 5">
-            <select id="concentrationUnit">
-                <option value="femtomolar">femtomolar (fM)</option>
-                <option value="picomolar">picomolar (pM)</option>
-                <option value="nanomolar">nanomolar (nM)</option>
-                <option value="micromolar">micromolar (µM)</option>
-                <option value="millimolar" selected>millimolar (mM)</option>
-                <option value="molar">molar (M)</option>
-            </select>
+    <section class="hero">
+        <div>
+            <h1>Mass from Volume & Molarity</h1>
+            <p>Calculate mass using volume and molarity | 从体积和摩尔浓度计算质量</p>
         </div>
+    </section>
 
-        <div class="form-group">
-            <label for="formulaWeight">
-                <span class="label-text">Formula Weight | 分子量 (daltons):</span>
-            </label>
-            <span class="tooltip">The molecular weight in daltons (g/mol) | 分子量（克/摩尔）</span>
-            <input type="number" id="formulaWeight" placeholder="e.g., 180">
+    <section class="calculators">
+        <div class="calculator-card">
+            <h2>Mass Calculator</h2>
+
+            <div class="form-group">
+                <label for="concentration">Molarity | 摩尔浓度:</label>
+                <input type="number" id="concentration" placeholder="e.g., 5">
+                <select id="concentrationUnit">
+                    <option value="M" selected>Molar (M)</option>
+                    <option value="mM">millimolar (mM)</option>
+                    <option value="µM">micromolar (µM)</option>
+                    <option value="nM">nanomolar (nM)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="formulaWeight">Formula Weight | 分子量 (daltons):</label>
+                <input type="number" id="formulaWeight" placeholder="e.g., 180">
+            </div>
+
+            <div class="form-group">
+                <label for="volume">Volume | 体积:</label>
+                <input type="number" id="volume" placeholder="e.g., 100">
+                <select id="volumeUnit">
+                    <option value="microliter" selected>microliter (µL)</option>
+                    <option value="milliliter">milliliter (mL)</option>
+                    <option value="liter">liter (L)</option>
+                </select>
+            </div>
+
+            <button onclick="calculateMass()" class="btn">Calculate Mass | 计算质量</button>
+            <p id="result"></p>
         </div>
+    </section>
 
-        <div class="form-group">
-            <label for="volume">
-                <span class="label-text">Volume | 体积:</span>
-            </label>
-            <span class="tooltip">Enter the volume value | 输入体积值</span>
-            <input type="number" id="volume" placeholder="e.g., 100">
-            <select id="volumeUnit">
-                <option value="microliter" selected>microliter (µL)</option>
-                <option value="milliliter">milliliter (mL)</option>
-                <option value="liter">liter (L)</option>
-            </select>
-        </div>
-
-        <button onclick="calculateMass()">Calculate Mass | 计算质量</button>
-        <p id="result"></p>
-    </div>
-
-    <script>
-        function calculateMass() {
-            const concentration = parseFloat(document.getElementById("concentration").value);
-            const concentrationUnit = document.getElementById("concentrationUnit").value;
-            const formulaWeight = parseFloat(document.getElementById("formulaWeight").value);
-            const volume = parseFloat(document.getElementById("volume").value);
-            const volumeUnit = document.getElementById("volumeUnit").value;
-
-            // Convert concentration to molar units (M)
-            let concentrationInMolar;
-            switch (concentrationUnit) {
-                case 'femtomolar': concentrationInMolar = concentration * 1e-15; break;
-                case 'picomolar': concentrationInMolar = concentration * 1e-12; break;
-                case 'nanomolar': concentrationInMolar = concentration * 1e-9; break;
-                case 'micromolar': concentrationInMolar = concentration * 1e-6; break;
-                case 'millimolar': concentrationInMolar = concentration * 1e-3; break;
-                case 'molar': concentrationInMolar = concentration; break;
-            }
-
-            // Convert volume to liters
-            let volumeInLiters;
-            switch (volumeUnit) {
-                case 'microliter': volumeInLiters = volume * 1e-6; break;
-                case 'milliliter': volumeInLiters = volume * 1e-3; break;
-                case 'liter': volumeInLiters = volume; break;
-            }
-
-            // Calculate mass (g) = concentration (M) * volume (L) * formula weight (g/mol)
-            let massInGrams = concentrationInMolar * volumeInLiters * formulaWeight;
-
-            // Convert mass to appropriate units
-            let mass;
-            let unit;
-
-            if (massInGrams >= 1) {
-                mass = massInGrams;
-                unit = "g";
-            } else if (massInGrams >= 1e-3) {
-                mass = massInGrams * 1e3;
-                unit = "mg";
-            } else if (massInGrams >= 1e-6) {
-                mass = massInGrams * 1e6;
-                unit = "µg";
-            } else if (massInGrams >= 1e-9) {
-                mass = massInGrams * 1e9;
-                unit = "ng";
-            } else if (massInGrams >= 1e-12) {
-                mass = massInGrams * 1e12;
-                unit = "pg";
-            } else {
-                mass = massInGrams * 1e15;
-                unit = "fg";
-            }
-
-            // Display the result with 3 decimal places
-            const resultElement = document.getElementById("result");
-            resultElement.textContent = `Mass | 质量 = ${mass.toFixed(3)} ${unit}`;
-            resultElement.style.display = "block";
-        }
-    </script>
-
+    <script src="molarity-mass.js"></script>
 </body>
-</html> 
+</html>

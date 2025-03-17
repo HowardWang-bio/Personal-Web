@@ -3,130 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cell Culture Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .container h2 {
-            color: #5A005A;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input {
-            width: calc(100% - 10px);
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #FF5A00;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: #E54E00;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            font-weight: bold;
-            display: none; /* Hide result box initially */
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <title>Cell Culture Calculator | 细胞培养计算器</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
+                    <li><a href="molarity-mass.html">Mass from Volume</a></li>
+                    <li><a href="molarity-volume.html">Volume from Mass</a></li>
+                    <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator</a></li>
+                </ul>
+            </li>
+            <li><a href="#cloning">Cloning Calculator</a></li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
-        <h2>Cell Culture Calculator</h2>
-
-        <div class="form-group">
-            <label for="cellDensity">Cell density of each well (cells/well):</label>
-            <input type="number" id="cellDensity" placeholder="Enter cell density per well">
+    <section class="hero">
+        <div>
+            <h1>Cell Culture Calculator</h1>
+            <p>Calculate cell culture parameters easily | 细胞培养参数计算工具</p>
         </div>
+    </section>
 
-        <div class="form-group">
-            <label for="totalWells">Total number of wells:</label>
-            <input type="number" id="totalWells" placeholder="Enter total wells to plate">
+    <section class="calculators">
+        <div class="calculator-card">
+            <h2>Cell Culture Calculator</h2>
+
+            <div class="form-group">
+                <label for="initialCells">Initial Cell Count | 初始细胞数:</label>
+                <input type="number" id="initialCells" placeholder="e.g., 1000000">
+            </div>
+
+            <div class="form-group">
+                <label for="desiredCells">Desired Cell Count | 所需细胞数:</label>
+                <input type="number" id="desiredCells" placeholder="e.g., 5000000">
+            </div>
+
+            <div class="form-group">
+                <label for="currentVolume">Current Volume | 当前体积:</label>
+                <input type="number" id="currentVolume" placeholder="e.g., 10">
+                <select id="currentVolumeUnit">
+                    <option value="milliliter" selected>milliliter (mL)</option>
+                    <option value="liter">liter (L)</option>
+                </select>
+            </div>
+
+            <button onclick="calculateCellCulture()" class="btn">Calculate Cell Culture | 计算细胞培养</button>
+            <p id="result"></p>
         </div>
+    </section>
 
-        <div class="form-group">
-            <label for="finalVolume">Final volume of each well (ml):</label>
-            <input type="number" id="finalVolume" step="0.01" placeholder="Enter final volume per well">
-        </div>
-
-        <div class="form-group">
-            <label for="cellSuspensionDensity">Cell suspension density (cells/ml):</label>
-            <input type="number" id="cellSuspensionDensity" placeholder="Enter cell suspension density">
-        </div>
-
-        <button onclick="calculate()">Calculate</button>
-
-        <div id="result" class="result"></div> <!-- Initially hidden -->
-    </div>
-
-    <script>
-        function calculate() {
-            // Get inputs
-            const cellDensity = parseFloat(document.getElementById('cellDensity').value);
-            const totalWells = parseInt(document.getElementById('totalWells').value);
-            const finalVolume = parseFloat(document.getElementById('finalVolume').value);
-            const cellSuspensionDensity = parseFloat(document.getElementById('cellSuspensionDensity').value);
-
-            // Validate inputs
-            if (isNaN(cellDensity) || isNaN(totalWells) || isNaN(finalVolume) || isNaN(cellSuspensionDensity)) {
-                document.getElementById('result').innerHTML = "Please fill in all fields with valid numbers.";
-                document.getElementById('result').style.display = 'block'; // Show result box
-                return;
-            }
-
-            // Calculate required cell suspension volume in ml
-            const totalCells = cellDensity * totalWells;
-            const cellSuspensionVolumeMl = totalCells / cellSuspensionDensity;
-
-            // Calculate the required media volume in ml
-            const totalVolume = finalVolume * totalWells;
-            const mediaVolumeMl = totalVolume - cellSuspensionVolumeMl;
-
-            // Display results and show result box
-            document.getElementById('result').innerHTML = `
-                <strong>Results:</strong><br>
-                Cell suspension needed: ${cellSuspensionVolumeMl.toFixed(2)} ml (${(cellSuspensionVolumeMl * 1000).toFixed(2)} µl)<br>
-                Media needed to reach final volume: ${mediaVolumeMl.toFixed(2)} ml (${(mediaVolumeMl * 1000).toFixed(2)} µl)
-            `;
-            document.getElementById('result').style.display = 'block'; // Show result box when results are available
-        }
-    </script>
-
+    <script src="cell-culture.js"></script>
 </body>
-</html> 
+</html>
