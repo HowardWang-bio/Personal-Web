@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Gibson Assembly Calculator | Gibson装配计算器</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator</a></li>
+                    <li><a href="glucose-bhb-mix.html">Glucose & BHB Mix</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
+                    <li><a href="molarity-mass.html">Mass from Volume</a></li>
+                    <li><a href="molarity-volume.html">Volume from Mass</a></li>
+                    <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cloning Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="gibson-assembly.html">Gibson Assembly</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Gibson Assembly Calculator</h1>
+            <p>Calculate DNA fragment amounts for Gibson Assembly | Gibson装配DNA片段量计算工具</p>
+        </div>
+    </section>
+
+    <section class="calculators">
+        <div class="calculator-card">
+            <h2>Gibson Assembly Calculator</h2>
+            <p class="subtitle">Gibson装配计算器</p>
+
+            <p>Enter the size (bp) and concentration (ng/µL) for each fragment below. You can select between 2 to 5 fragments.<br>
+            输入每个片段的大小（bp）和浓度（ng/µL）。您可以选择2到5个片段。</p>
+
+            <div class="form-group">
+                <label for="fragmentCount">
+                    <span class="label-text">Select number of fragments | 选择片段数量:</span>
+                </label>
+                <select id="fragmentCount" name="fragmentCount" onchange="showFragmentFields()" class="form-select">
+                    <option value="2">2 fragments | 2个片段</option>
+                    <option value="3">3 fragments | 3个片段</option>
+                    <option value="4">4 fragments | 4个片段</option>
+                    <option value="5">5 fragments | 5个片段</option>
+                </select>
+            </div>
+
+            <!-- Fragment input fields -->
+            <div id="fragment1" class="form-group fragment-input">
+                <h3>Fragment 1 | 片段 1</h3>
+                <label for="size1">
+                    <span class="label-text">Size | 大小 (bp):</span>
+                </label>
+                <span class="tooltip">Enter the size of fragment in base pairs | 输入片段的碱基对大小</span>
+                <input type="number" id="size1" placeholder="e.g., 1500">
+                
+                <label for="conc1">
+                    <span class="label-text">Concentration | 浓度 (ng/µL):</span>
+                </label>
+                <span class="tooltip">Enter the concentration of fragment | 输入片段的浓度</span>
+                <input type="number" id="conc1" placeholder="e.g., 25">
+            </div>
+
+            <div id="fragment2" class="form-group fragment-input">
+                <h3>Fragment 2 | 片段 2</h3>
+                <label for="size2">
+                    <span class="label-text">Size | 大小 (bp):</span>
+                </label>
+                <span class="tooltip">Enter the size of fragment in base pairs | 输入片段的碱基对大小</span>
+                <input type="number" id="size2" placeholder="e.g., 2000">
+                
+                <label for="conc2">
+                    <span class="label-text">Concentration | 浓度 (ng/µL):</span>
+                </label>
+                <span class="tooltip">Enter the concentration of fragment | 输入片段的浓度</span>
+                <input type="number" id="conc2" placeholder="e.g., 30">
+            </div>
+
+            <div id="fragment3" class="form-group fragment-input" style="display: none;">
+                <h3>Fragment 3 | 片段 3</h3>
+                <label for="size3">
+                    <span class="label-text">Size | 大小 (bp):</span>
+                </label>
+                <span class="tooltip">Enter the size of fragment in base pairs | 输入片段的碱基对大小</span>
+                <input type="number" id="size3" placeholder="e.g., 1200">
+                
+                <label for="conc3">
+                    <span class="label-text">Concentration | 浓度 (ng/µL):</span>
+                </label>
+                <span class="tooltip">Enter the concentration of fragment | 输入片段的浓度</span>
+                <input type="number" id="conc3" placeholder="e.g., 20">
+            </div>
+
+            <div id="fragment4" class="form-group fragment-input" style="display: none;">
+                <h3>Fragment 4 | 片段 4</h3>
+                <label for="size4">
+                    <span class="label-text">Size | 大小 (bp):</span>
+                </label>
+                <span class="tooltip">Enter the size of fragment in base pairs | 输入片段的碱基对大小</span>
+                <input type="number" id="size4" placeholder="e.g., 800">
+                
+                <label for="conc4">
+                    <span class="label-text">Concentration | 浓度 (ng/µL):</span>
+                </label>
+                <span class="tooltip">Enter the concentration of fragment | 输入片段的浓度</span>
+                <input type="number" id="conc4" placeholder="e.g., 15">
+            </div>
+
+            <div id="fragment5" class="form-group fragment-input" style="display: none;">
+                <h3>Fragment 5 | 片段 5</h3>
+                <label for="size5">
+                    <span class="label-text">Size | 大小 (bp):</span>
+                </label>
+                <span class="tooltip">Enter the size of fragment in base pairs | 输入片段的碱基对大小</span>
+                <input type="number" id="size5" placeholder="e.g., 600">
+                
+                <label for="conc5">
+                    <span class="label-text">Concentration | 浓度 (ng/µL):</span>
+                </label>
+                <span class="tooltip">Enter the concentration of fragment | 输入片段的浓度</span>
+                <input type="number" id="conc5" placeholder="e.g., 10">
+            </div>
+
+            <button onclick="calculate()" class="btn">Calculate | 计算</button>
+            <div id="results" class="result"></div>
+        </div>
+    </section>
+
+    <script src="gibson-assembly.js"></script>
+</body>
+</html> 
