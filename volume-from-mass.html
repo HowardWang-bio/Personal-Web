@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Volume from Mass and Concentration | 从质量和浓度计算体积</title>
     <style>
         /* 全局样式 Global Styles */
@@ -87,8 +88,51 @@
     </style>
 </head>
 <body>
-    <h1>Volume from Mass and Concentration<br><small>从质量和浓度计算体积</small></h1>
-    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator | 培养基计算</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter | 单位转换</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator | 混合计算</a></li>
+                    <li><a href="glucose-bhb-mix.html">Glucose & BHB Mix | 葡萄糖和BHB混合</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-from-mass.html">Molarity from Mass & Volume | 从质量和体积计算摩尔浓度</a></li>
+                    <li><a href="mass-from-volume.html">Mass from Volume | 从体积和浓度计算质量</a></li>
+                    <li><a href="volume-from-mass.html">Volume from Mass | 从质量和浓度计算体积</a></li>
+                    <li><a href="dilution-calculator.html">Dilution Calculator | 稀释计算器</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator | 血球计数器计算</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator | 细胞培养计算</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cloning Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="gibson-assembly.html">Gibson Assembly | Gibson装配计算器</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Volume from Mass and Concentration</h1>
+            <p>Calculate volume using mass and concentration | 从质量和浓度计算体积</p>
+        </div>
+    </section>
+
     <div class="calculator-container">
         <div class="form-group">
             <label for="mass">Mass (g) | 质量 (g):</label>
