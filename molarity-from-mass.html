@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molarity from Mass and Volume | 从质量和体积计算摩尔浓度</title>
+    <style>
+        /* 全局样式 Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .calculator-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Molarity from Mass and Volume<br><small>从质量和体积计算摩尔浓度</small></h1>
+    
+    <div class="calculator-container">
+        <div class="form-group">
+            <label for="mass">Mass (g) | 质量 (g):</label>
+            <input type="number" id="mass" placeholder="Enter mass in grams">
+        </div>
+        
+        <div class="form-group">
+            <label for="formula-weight">Formula Weight (g/mol) | 分子量 (g/mol):</label>
+            <input type="number" id="formula-weight" placeholder="Enter formula weight">
+        </div>
+        
+        <div class="form-group">
+            <label for="volume">Volume (L) | 体积 (L):</label>
+            <input type="number" id="volume" placeholder="Enter volume in liters">
+        </div>
+        
+        <button onclick="calculateMolarity()">Calculate Molarity | 计算摩尔浓度</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+    
+    <a href="index.html" class="home-link">Return to Home | 返回主页</a>
+    
+    <script>
+        function calculateMolarity() {
+            // 获取用户输入值 Get user input values
+            const mass = parseFloat(document.getElementById('mass').value);
+            const formulaWeight = parseFloat(document.getElementById('formula-weight').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            
+            // 检查输入是否有效 Check if inputs are valid
+            if (isNaN(mass) || isNaN(formulaWeight) || isNaN(volume)) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = 'Please enter valid numbers for all fields | 请为所有字段输入有效数字';
+                return;
+            }
+            
+            // 避免除以零 Avoid division by zero
+            if (volume === 0 || formulaWeight === 0) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = 'Volume and formula weight cannot be zero | 体积和分子量不能为零';
+                return;
+            }
+            
+            // 计算摩尔浓度 (M) = 质量 (g) / [分子量 (g/mol) × 体积 (L)]
+            // Calculate molarity (M) = mass (g) / [formula weight (g/mol) × volume (L)]
+            const molarity = mass / (formulaWeight * volume);
+            
+            // 显示结果 Display the result
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `Molarity | 摩尔浓度: ${molarity.toFixed(4)} M`;
+        }
+    </script>
+</body>
+</html> 

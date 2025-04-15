@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilute a Stock Solution | 稀释原液</title>
+    <style>
+        /* 全局样式 Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .calculator-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dilute a Stock Solution<br><small>稀释原液</small></h1>
+    
+    <div class="calculator-container">
+        <div class="form-group">
+            <label for="stock-concentration">Stock Concentration (M) | 原液浓度 (M):</label>
+            <input type="number" id="stock-concentration" placeholder="Enter stock concentration in molar">
+        </div>
+        
+        <div class="form-group">
+            <label for="desired-concentration">Desired Concentration (M) | 目标浓度 (M):</label>
+            <input type="number" id="desired-concentration" placeholder="Enter desired concentration">
+        </div>
+        
+        <div class="form-group">
+            <label for="final-volume">Final Volume (mL) | 最终体积 (mL):</label>
+            <input type="number" id="final-volume" placeholder="Enter final volume in milliliters">
+        </div>
+        
+        <button onclick="calculateDilution()">Calculate Volume Needed | 计算所需体积</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+    
+    <a href="index.html" class="home-link">Return to Home | 返回主页</a>
+    
+    <script>
+        function calculateDilution() {
+            // 获取用户输入值 Get user input values
+            const stockConcentration = parseFloat(document.getElementById('stock-concentration').value);
+            const desiredConcentration = parseFloat(document.getElementById('desired-concentration').value);
+            const finalVolume = parseFloat(document.getElementById('final-volume').value);
+            
+            // 检查输入是否有效 Check if inputs are valid
+            if (isNaN(stockConcentration) || isNaN(desiredConcentration) || isNaN(finalVolume)) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = 'Please enter valid numbers for all fields | 请为所有字段输入有效数字';
+                return;
+            }
+            
+            // 避免无效输入 Avoid invalid inputs
+            if (stockConcentration <= 0 || desiredConcentration <= 0 || finalVolume <= 0) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = 'All values must be greater than zero | 所有值必须大于零';
+                return;
+            }
+            
+            // 检查浓度关系 Check concentration relationship
+            if (desiredConcentration > stockConcentration) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = 'Desired concentration cannot be greater than stock concentration | 目标浓度不能大于原液浓度';
+                return;
+            }
+            
+            // 计算需要的原液体积 (mL): V1 = (C2 × V2) / C1
+            // Calculate required stock volume (mL): V1 = (C2 × V2) / C1
+            const stockVolume = (desiredConcentration * finalVolume) / stockConcentration;
+            
+            // 计算需要添加的溶剂体积 Calculate diluent volume to add
+            const diluentVolume = finalVolume - stockVolume;
+            
+            // 显示结果 Display the result
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = 
+                `Stock Solution Needed | 所需原液: ${stockVolume.toFixed(2)} mL<br>` +
+                `Diluent to Add | 添加溶剂: ${diluentVolume.toFixed(2)} mL`;
+        }
+    </script>
+</body>
+</html> 

@@ -18,6 +18,7 @@ nav {
     width: 100%;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 nav ul {
@@ -25,12 +26,18 @@ nav ul {
     justify-content: center;
     list-style: none;
     gap: 2rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 nav a {
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    text-align: center;
 }
 
 nav ul li.dropdown {
@@ -58,13 +65,27 @@ nav ul li.dropdown:hover .dropdown-content {
     flex-direction: column;
 }
 
-nav ul li {
+.dropdown {
     position: relative;
 }
 
-nav ul.dropdown-content li {
-    margin-bottom: 10px;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 51, 0.95);
+    min-width: 280px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     text-align: center;
+}
+
+nav ul li {
+    position: relative;
 }
 
 nav ul li a {
@@ -72,11 +93,29 @@ nav ul li a {
     text-decoration: none;
     font-size: 1.1rem;
     display: block;
-    white-space: nowrap;
+    white-space: normal;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
 nav ul li a:hover {
     color: #4ecdc4;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+nav ul.dropdown-content li,
+.dropdown-content li {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+nav ul.dropdown-content li a,
+.dropdown-content li a {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
 }
 
 .hero {
@@ -246,48 +285,6 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.2);
     font-size: 1.1rem;
     display: none;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgba(0, 0, 51, 0.95);
-    min-width: 280px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    text-align: center;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown-content li {
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.dropdown-content li:last-child {
-    margin-bottom: 0;
-}
-
-.dropdown-content a {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.dropdown-content a:hover {
-    color: #4ecdc4;
 }
 
 /* Gibson Assembly Calculator specific styles */
