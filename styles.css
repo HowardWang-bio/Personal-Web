@@ -22,7 +22,7 @@ nav {
 
 nav ul {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     list-style: none;
     gap: 2rem;
 }
@@ -47,8 +47,10 @@ nav ul .dropdown-content {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     flex-direction: column;
     gap: 10px;
-    left: 0;
-    text-align: left;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 100;
 }
 
 nav ul li.dropdown:hover .dropdown-content {
@@ -62,7 +64,7 @@ nav ul li {
 
 nav ul.dropdown-content li {
     margin-bottom: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 nav ul li a {
@@ -254,12 +256,15 @@ button:hover {
     display: none;
     position: absolute;
     background-color: rgba(0, 0, 51, 0.95);
-    min-width: 200px;
+    min-width: 280px;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     top: 100%;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
 }
 
 .dropdown:hover .dropdown-content {
@@ -268,6 +273,7 @@ button:hover {
 
 .dropdown-content li {
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .dropdown-content li:last-child {
