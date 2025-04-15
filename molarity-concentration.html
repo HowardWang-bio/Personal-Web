@@ -8,27 +8,43 @@
 </head>
 <body>
     <nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="glucose-media.html">Glucose Calculator</a></li>
-        <li class="dropdown">
-            <a href="#">Molarity Calculators</a>
-            <ul class="dropdown-content">
-                <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
-                <li><a href="molarity-mass.html">Mass from Volume</a></li>
-                <li><a href="molarity-volume.html">Volume from Mass</a></li>
-                <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
-            </ul>
-        </li>
-        <li><a href="hemocytometer.html">Cell Counting Calculator</a></li>
-        <li><a href="#cloning">Cloning Calculator</a></li>
-        <li><a href="#contact">Contact me</a></li>
-    </ul>
-</nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Glucose Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="glucose-media.html">Media Calculator | 培养基计算</a></li>
+                    <li><a href="glucose-converter.html">Unit Converter | 单位转换</a></li>
+                    <li><a href="glucose-mixture.html">Mixture Calculator | 混合计算</a></li>
+                    <li><a href="glucose-bhb-mix.html">Glucose & BHB Mix | 葡萄糖和BHB混合</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Molarity Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="molarity-concentration.html">Molarity from Mass & Volume</a></li>
+                    <li><a href="molarity-mass.html">Mass from Volume</a></li>
+                    <li><a href="molarity-volume.html">Volume from Mass</a></li>
+                    <li><a href="molarity-dilution.html">Dilute a Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cell Counting Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="hemocytometer.html">Hemocytometer Calculator</a></li>
+                    <li><a href="cell-culture.html">Cell Culture Calculator</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Cloning Calculators</a>
+                <ul class="dropdown-content">
+                    <li><a href="gibson-assembly.html">Gibson Assembly | Gibson装配计算器</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact me</a></li>
+        </ul>
+    </nav>
 
-    <title>Molarity from Mass & Volume | 从质量和体积计算摩尔浓度</title>
-</head>
-<body>
     <section class="hero">
         <div>
             <h1>Molarity from Mass & Volume</h1>
@@ -67,6 +83,7 @@
 
             <button onclick="calculateMolarity()" class="btn">Calculate Molarity | 计算摩尔浓度</button>
             <p id="result"></p>
+        </div>
     </section>
 
     <script src="molarity-concentration.js"></script>
