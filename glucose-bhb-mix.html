@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose & BHB Master Mix Calculator | 葡萄糖和BHB主混合液计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2, .container h3 {
+            color: #5A005A;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .tooltip {
+            font-size: 12px;
+            color: gray;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #E54E00;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Glucose & BHB Master Mix Calculator</h2>
+        <p class="subtitle">葡萄糖和β-羟基丁酸(BHB)主混合液计算器</p>
+
+        <div class="form-group">
+            <label for="initialGlucose">
+                <span class="label-text">Glucose Concentration in Cell Culture | 细胞培养中的葡萄糖浓度:</span>
+            </label>
+            <span class="tooltip">Enter the current glucose concentration | 输入当前葡萄糖浓度</span>
+            <input type="number" id="initialGlucose" step="0.0001" placeholder="e.g. 0.3">
+            <select id="unitInitialGlucose">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="finalGlucose">
+                <span class="label-text">Final Glucose Concentration | 最终葡萄糖浓度:</span>
+            </label>
+            <span class="tooltip">Enter the desired final glucose concentration | 输入所需的最终葡萄糖浓度</span>
+            <input type="number" id="finalGlucose" step="0.0001" placeholder="e.g. 0.5">
+            <select id="unitFinalGlucose">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="initialBHB">
+                <span class="label-text">BHB Concentration in Cell Culture | 细胞培养中的BHB浓度:</span>
+            </label>
+            <span class="tooltip">Enter the current BHB concentration | 输入当前BHB浓度</span>
+            <input type="number" id="initialBHB" step="0.0001" placeholder="e.g. 3.5">
+            <select id="unitInitialBHB">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="finalBHB">
+                <span class="label-text">Final BHB Concentration | 最终BHB浓度:</span>
+            </label>
+            <span class="tooltip">Enter the desired final BHB concentration | 输入所需的最终BHB浓度</span>
+            <input type="number" id="finalBHB" step="0.0001" placeholder="e.g. 5">
+            <select id="unitFinalBHB">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="finalVolume">
+                <span class="label-text">Volume of Each Well | 每孔体积:</span>
+            </label>
+            <span class="tooltip">Enter the volume of each well | 输入每孔的体积</span>
+            <input type="number" id="finalVolume" step="0.0001" placeholder="e.g. 500">
+            <select id="unitVolume">
+                <option value="uL" selected>μL</option>
+                <option value="mL">mL</option>
+                <option value="L">L</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="wellCount">
+                <span class="label-text">Total Number of Wells | 总孔数:</span>
+            </label>
+            <span class="tooltip">Enter the total number of wells | 输入总孔数</span>
+            <input type="number" id="wellCount" step="1" placeholder="e.g. 12">
+        </div>
+
+        <div class="form-group">
+            <label for="stockGlucose">
+                <span class="label-text">Glucose Stock Concentration | 葡萄糖储备液浓度:</span>
+            </label>
+            <span class="tooltip">Enter the concentration of your glucose stock solution | 输入葡萄糖储备液浓度</span>
+            <input type="number" id="stockGlucose" step="0.0001" placeholder="e.g. 5">
+            <select id="unitStockGlucose">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="stockBHB">
+                <span class="label-text">BHB Stock Concentration | BHB储备液浓度:</span>
+            </label>
+            <span class="tooltip">Enter the concentration of your BHB stock solution | 输入BHB储备液浓度</span>
+            <input type="number" id="stockBHB" step="0.0001" placeholder="e.g. 25">
+            <select id="unitStockBHB">
+                <option value="uM">μM</option>
+                <option value="mM" selected>mM</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="calculateMix()">Calculate | 计算</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // 将浓度转换为统一单位（mM）
+        function convertToMillimolar(value, unit) {
+            if (unit === 'M') return value * 1000;
+            if (unit === 'uM') return value / 1000;
+            return value; // 默认为mM
+        }
+
+        // 将体积转换为统一单位（μL）
+        function convertToMicroliter(value, unit) {
+            if (unit === 'mL') return value * 1000;
+            if (unit === 'L') return value * 1_000_000;
+            return value; // 默认为μL
+        }
+
+        // 格式化体积显示
+        function formatVolume(value) {
+            if (value >= 1_000_000) return (value / 1_000_000).toFixed(4) + ' L';
+            if (value >= 1000) return (value / 1000).toFixed(4) + ' mL';
+            return value.toFixed(4) + ' μL';
+        }
+
+        // 计算混合液
+        function calculateMix() {
+            // 获取输入值并转换为统一单位
+            const g0 = convertToMillimolar(parseFloat(document.getElementById('initialGlucose').value), document.getElementById('unitInitialGlucose').value);
+            const g1 = convertToMillimolar(parseFloat(document.getElementById('finalGlucose').value), document.getElementById('unitFinalGlucose').value);
+            const b0 = convertToMillimolar(parseFloat(document.getElementById('initialBHB').value), document.getElementById('unitInitialBHB').value);
+            const b1 = convertToMillimolar(parseFloat(document.getElementById('finalBHB').value), document.getElementById('unitFinalBHB').value);
+            const V = convertToMicroliter(parseFloat(document.getElementById('finalVolume').value), document.getElementById('unitVolume').value);
+            const N = parseInt(document.getElementById('wellCount').value);
+            const gs = convertToMillimolar(parseFloat(document.getElementById('stockGlucose').value), document.getElementById('unitStockGlucose').value);
+            const bs = convertToMillimolar(parseFloat(document.getElementById('stockBHB').value), document.getElementById('unitStockBHB').value);
+
+            // 验证输入
+            if (isNaN(g0) || isNaN(g1) || isNaN(b0) || isNaN(b1) || isNaN(V) || isNaN(N) || isNaN(gs) || isNaN(bs)) {
+                alert("Please enter valid numbers for all fields | 请为所有字段输入有效数字");
+                return;
+            }
+            
+            if (gs <= g0 || gs <= g1) {
+                alert("Glucose stock concentration must be higher than initial and final concentrations | 葡萄糖储备液浓度必须高于初始和最终浓度");
+                return;
+            }
+            
+            if (bs <= b0 || bs <= b1) {
+                alert("BHB stock concentration must be higher than initial and final concentrations | BHB储备液浓度必须高于初始和最终浓度");
+                return;
+            }
+
+            // 计算方程系数
+            const A1 = gs;
+            const B1 = -g0;
+            const C1 = g1 * V - g0 * V;
+
+            const A2 = -bs;
+            const B2 = -b0 + bs;
+            const C2 = b1 * V - b0 * V;
+
+            // 解线性方程组
+            const denom = A1 * B2 - A2 * B1;
+            const a = (C1 * B2 - C2 * B1) / denom;
+            const x = (A1 * C2 - A2 * C1) / denom;
+            const bhbVol = x - a;
+            const totalMix = a + bhbVol;
+
+            // 计算主混合液总量
+            const totalGlucose = a * N;
+            const totalBHB = bhbVol * N;
+            const totalMixPerWell = totalMix;
+
+            // 显示结果
+            const resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = `
+                <h3>Results | 结果</h3>
+                <p><strong>Required Volumes per Well | 每孔所需体积:</strong></p>
+                <p>Volume of Glucose from Stock | 储备液中葡萄糖体积: ${formatVolume(a)}</p>
+                <p>Volume of BHB from Stock | 储备液中BHB体积: ${formatVolume(bhbVol)}</p>
+                <p>Total Volume of Additive Mix per Well | 每孔添加混合液总体积: ${formatVolume(totalMixPerWell)}</p>
+                
+                <p><strong>Master Mix for ${N} Wells | ${N}孔主混合液:</strong></p>
+                <p>Total Glucose Volume from Stock | 储备液中葡萄糖总体积: ${formatVolume(totalGlucose)}</p>
+                <p>Total BHB Volume from Stock | 储备液中BHB总体积: ${formatVolume(totalBHB)}</p>
+                <p>Total Master Mix Volume | 主混合液总体积: ${formatVolume(totalGlucose + totalBHB)}</p>
+            `;
+            resultsElement.style.display = "block";
+        }
+    </script>
+</body>
+</html> 
