@@ -19,13 +19,55 @@ A comprehensive suite of calculators for biological laboratory applications.
   - 计算两种不同浓度溶液的混合比例
   - 提供精确的混合说明
 
+- **葡萄糖与BHB混合计算器 (Glucose & BHB Mix Calculator)**
+  - 计算葡萄糖和β-羟基丁酸(BHB)的混合比例
+  - 支持自定义浓度设置
+
+### 2. 摩尔浓度计算器套件 (Molarity Calculator Suite)
+- **从质量和体积计算摩尔浓度 (Molarity from Mass & Volume)**
+  - 基于物质质量、分子量和溶液体积计算摩尔浓度
+  - 提供准确的摩尔浓度(M)结果
+
+- **从体积和浓度计算质量 (Mass from Volume)**
+  - 根据所需浓度和体积计算需要的物质质量
+  - 支持多种单位输入
+
+- **从质量和浓度计算体积 (Volume from Mass)**
+  - 根据物质质量和所需浓度计算溶液体积
+  - 适用于溶液配制场景
+
+- **稀释计算器 (Dilution Calculator)**
+  - 计算稀释原液所需的体积
+  - 提供添加溶剂的精确量，实现目标浓度
+
+### 3. 细胞计数计算器 (Cell Counting Calculator)
+- **血球计数器计算 (Hemocytometer Calculator)**
+  - 自动计算细胞计数和密度
+  - 支持不同类型的血球计数器
+
+- **细胞培养计算 (Cell Culture Calculator)**
+  - 计算传代、接种所需的细胞数量
+  - 提供细胞增殖建议
+
+### 4. 克隆计算器 (Cloning Calculator)
+- **Gibson装配计算器 (Gibson Assembly Calculator)**
+  - 计算 Gibson 装配反应所需的 DNA 组分
+  - 提供优化反应条件的建议
+
 ## 技术特点 Technical Features
 
 - 纯 HTML5 和原生 JavaScript 实现
-- 响应式设计，适配多种设备
+- 响应式设计，适配各种屏幕尺寸设备
+  - 桌面端展示横向导航栏
+  - 移动端提供汉堡菜单式导航
+  - 自适应布局确保在所有设备上的最佳显示效果
 - 双语界面（中英文）
 - 实时计算结果
 - 用户友好的错误提示
+- 优化的导航体验
+  - 直观的菜单分类
+  - 触控友好的按钮大小和间距
+  - 二级菜单逻辑清晰
 
 ## 使用方法 Usage
 
@@ -40,14 +82,14 @@ cd Personal-Web
 ## 开发计划 Development Plan
 
 1. 添加更多实用工具：
-   - 细胞计数计算器
-   - 摩尔浓度计算器
-   - 克隆计算器
+   - PCR 引物设计工具
+   - 蛋白质相关计算器
+   - 统计分析工具
    
 2. 优化用户界面：
    - 添加深色模式
-   - 改进移动端体验
    - 增加数据保存功能
+   - 提供数据导出为Excel/PDF选项
 
 ## 贡献指南 Contributing
 
