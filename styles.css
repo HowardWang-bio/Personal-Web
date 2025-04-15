@@ -313,3 +313,101 @@ hr {
     background-color: #ddd;
     margin: 1rem 0;
 }
+
+/* 添加汉堡菜单按钮样式 */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 150;
+}
+
+/* 响应式设计 - 移动设备适配 */
+@media screen and (max-width: 991px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: rgba(0, 0, 51, 0.95);
+        padding: 80px 0 30px;
+        transition: 0.3s;
+        overflow-y: auto;
+        gap: 0;
+    }
+
+    nav ul.active {
+        right: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav ul li a {
+        padding: 15px 20px;
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    nav ul .dropdown-content,
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        min-width: auto;
+        transform: none;
+        box-shadow: none;
+        background-color: rgba(0, 0, 102, 0.5);
+        padding: 0;
+        display: none;
+    }
+
+    nav ul li.dropdown:hover .dropdown-content {
+        display: none;
+    }
+
+    nav ul li.dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    nav ul.dropdown-content li a,
+    .dropdown-content li a {
+        padding-left: 40px;
+    }
+
+    /* 使标题在小屏幕上更小 */
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* 添加网页遮罩，点击关闭菜单 */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+}
+
+.overlay.active {
+    display: block;
+}

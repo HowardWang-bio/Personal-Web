@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Molarity from Mass and Volume | 从质量和体积计算摩尔浓度</title>
     <style>
         /* 全局样式 Global Styles */
@@ -89,10 +90,13 @@
 </head>
 <body>
     <nav>
-        <ul>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul id="mainMenu">
             <li><a href="index.html">Home</a></li>
             <li class="dropdown">
-                <a href="#">Glucose Calculators</a>
+                <a href="#" class="dropdown-toggle">Glucose Calculators</a>
                 <ul class="dropdown-content">
                     <li><a href="glucose-media.html">Media Calculator | 培养基计算</a></li>
                     <li><a href="glucose-converter.html">Unit Converter | 单位转换</a></li>
@@ -101,7 +105,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#">Molarity Calculators</a>
+                <a href="#" class="dropdown-toggle">Molarity Calculators</a>
                 <ul class="dropdown-content">
                     <li><a href="molarity-from-mass.html">Molarity from Mass & Volume | 从质量和体积计算摩尔浓度</a></li>
                     <li><a href="mass-from-volume.html">Mass from Volume | 从体积和浓度计算质量</a></li>
@@ -110,14 +114,14 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#">Cell Counting Calculators</a>
+                <a href="#" class="dropdown-toggle">Cell Counting Calculators</a>
                 <ul class="dropdown-content">
                     <li><a href="hemocytometer.html">Hemocytometer Calculator | 血球计数器计算</a></li>
                     <li><a href="cell-culture.html">Cell Culture Calculator | 细胞培养计算</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#">Cloning Calculators</a>
+                <a href="#" class="dropdown-toggle">Cloning Calculators</a>
                 <ul class="dropdown-content">
                     <li><a href="gibson-assembly.html">Gibson Assembly | Gibson装配计算器</a></li>
                 </ul>
@@ -125,6 +129,7 @@
             <li><a href="#contact">Contact Me</a></li>
         </ul>
     </nav>
+    <div class="overlay" id="overlay"></div>
 
     <section class="hero">
         <div>
@@ -186,5 +191,6 @@
             document.getElementById('result').innerHTML = `Molarity | 摩尔浓度: ${molarity.toFixed(4)} M`;
         }
     </script>
+    <script src="nav.js"></script>
 </body>
 </html> 
